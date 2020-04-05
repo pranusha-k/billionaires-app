@@ -1,6 +1,9 @@
 package billionaires.springbootbillionaires.entities;
 
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,12 +15,9 @@ public class Billionaire {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    private long rank;
-    //@NotBlank(message = "Name is mandatory")
     private String name;
    // @NotBlank(message = "networth is mandatory")
-    private String networth;
+    private Double networth;
     // @NotBlank(message = "companiesowned is mandatory")
     private String companiesowned;
 
@@ -25,9 +25,8 @@ public class Billionaire {
 
     }
 
-    public Billionaire(long rank,String name, String networth, String companiesowned) {
+    public Billionaire(String name, Double networth, String companiesowned) {
         this.name = name;
-        this.rank = rank;
         this.networth = networth;
         this.companiesowned = companiesowned;
     }
@@ -41,19 +40,11 @@ public class Billionaire {
         return id;
     }
 
-    public void setRank(long rank) {
-        this.rank = rank;
-    }
-
-    public long getRank() {
-        return rank;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setNetworth(String networth) {
+    public void setNetworth(Double networth) {
         this.networth = networth;
     }
 
@@ -61,7 +52,7 @@ public class Billionaire {
         return name;
     }
 
-    public String getNetworth() {
+    public Double getNetworth() {
         return networth;
     }
 
@@ -76,7 +67,6 @@ public class Billionaire {
     @Override
     public String toString() {
         return "Billionaire{" +
-                "rank=" + rank +
                 ", name='" + name + '\'' +
                 ", networth='" + networth + '\'' +
                 ", companiesowned='" + companiesowned + '\'' +
