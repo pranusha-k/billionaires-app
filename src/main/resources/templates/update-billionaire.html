@@ -19,23 +19,22 @@
                     <div class="form-group col-md-8">
                         <label for="name" class="col-form-label">Name</label>
                         <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name">
-                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+
                     </div>
 
                     <div class="form-group col-md-8">
                         <label for="networth" class="col-form-label">Networth</label>
                         <input type="text" th:field="*{networth}" class="form-control" id="netWorth" placeholder="Networth">
-                        <span th:if="${#fields.hasErrors('networth')}" th:errors="*{networth}" class="text-danger"></span>
+
                     </div>
                     <div class="form-group col-md-8">
                         <label for="companiesowned" class="col-form-label">CompaniesOwned</label>
                         <input type="text" th:field="*{companiesowned}" class="form-control" id="companiesowned" placeholder="CompaniesOwned">
-                        <span th:if="${#fields.hasErrors('companiesowned')}" th:errors="*{companiesowned}" class="text-danger"></span>
+
                     </div>
                     <form action="/action_page.php">
                         <label for="img">Icon:</label>
                         <input type="file" id="img" name="img" accept="image/*">
-                        <span th:if="${#fields.hasErrors('icon')}" th:errors="*{icon}" class="text-danger"></span>
                     </form>
 
                 <div class="row">

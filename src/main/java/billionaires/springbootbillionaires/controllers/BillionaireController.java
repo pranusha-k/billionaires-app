@@ -26,13 +26,13 @@ public class BillionaireController {
        return "index";
     }
     @GetMapping("/addBillionaire")
-    public String showAddBillionaireForm(Billionaire billionaire){
+    public String showAddBillionaireForm(){
        return "add-billionaire";
     }
     @PostMapping("/addBillionaire")
     public String addBillionaire(@Valid Billionaire billionaire, BindingResult result,Model model){
         if (result.hasErrors()) {
-            return "add-billionaire";
+            return "error";
         }
 
         billionaireService.saveBillionaire(billionaire);
@@ -49,7 +49,7 @@ public class BillionaireController {
     public String updateBillionaire(@PathVariable("id") long id,@Valid Billionaire billionaire,BindingResult result,Model model){
        if (result.hasErrors()) {
            billionaire.setId(id);
-           return "update-billionaire";
+           return "error";
        }
 
        billionaireService.saveBillionaire(billionaire);

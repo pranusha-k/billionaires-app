@@ -4,10 +4,7 @@ package billionaires.springbootbillionaires.entities;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Blob;
 //import javax.validation.constraints.NotBlank;
 
@@ -21,7 +18,11 @@ public class Billionaire {
     private Double networth;
     // @NotBlank(message = "companiesowned is mandatory")
     private String companiesowned;
-     private Blob icon;
+   // @Lob
+    // private byte[] icon;
+    private Blob icon;
+
+
     public  Billionaire() {
 
     }
