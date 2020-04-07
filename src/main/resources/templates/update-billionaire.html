@@ -32,8 +32,12 @@
                         <input type="text" th:field="*{companiesowned}" class="form-control" id="companiesowned" placeholder="CompaniesOwned">
                         <span th:if="${#fields.hasErrors('companiesowned')}" th:errors="*{companiesowned}" class="text-danger"></span>
                     </div>
+                    <form action="/action_page.php">
+                        <label for="img">Icon:</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                        <span th:if="${#fields.hasErrors('icon')}" th:errors="*{icon}" class="text-danger"></span>
+                    </form>
 
-                </div>
                 <div class="row">
                     <div class="col-md-8 mt-5">
                         <input type="submit" class="btn btn-primary" value="Update">

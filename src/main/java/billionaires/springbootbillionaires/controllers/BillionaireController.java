@@ -1,8 +1,8 @@
 package billionaires.springbootbillionaires.controllers;
 
-
 import billionaires.springbootbillionaires.entities.Billionaire;
 import billionaires.springbootbillionaires.repositories.BillionaireRepository;
+import billionaires.springbootbillionaires.service.BillionaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -14,15 +14,15 @@ import javax.validation.Valid;
 
 @Controller
 public class BillionaireController {
-    private final BillionaireRepository billionaireRepository;
+    private final BillionaireService billionaireService;
    @Autowired
-    public BillionaireController(BillionaireRepository billionaireRepository) {
-        this.billionaireRepository = billionaireRepository;
-    }
+    public BillionaireController(BillionaireService billionaireService) {
+       this.billionaireService = billionaireService;
+   }
 
     @GetMapping("/")
     public String showBillionaires(Model model){
-       model.addAttribute( "billionaires",billionaireRepository.findAll(Sort.by(Sort.Direction.DESC,"networth")));
+       model.addAttribute( "billionaires", billionaireService.sortBillionaires());
        return "index";
     }
     @GetMapping("/addBillionaire")
@@ -35,13 +35,13 @@ public class BillionaireController {
             return "add-billionaire";
         }
 
-        billionaireRepository.save(billionaire);
-        model.addAttribute("billionaires", billionaireRepository.findAll(Sort.by(Sort.Direction.DESC,"networth")));
+        billionaireService.saveBillionaire(billionaire);
+        model.addAttribute("billionaires", billionaireService.sortBillionaires());
         return "index";
    }
    @GetMapping("/updateBillionaire/{id}")
    public String showUpdateBillionaireForm(@PathVariable("id") long id, Model model) {
-       Billionaire billionaire = billionaireRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid billionaire Id:" + id));
+       Billionaire billionaire = billionaireService.findBillionaire(id);
        model.addAttribute("billionaire", billionaire);
        return "update-billionaire";
    }
@@ -52,15 +52,15 @@ public class BillionaireController {
            return "update-billionaire";
        }
 
-       billionaireRepository.save(billionaire);
-       model.addAttribute("billionaires", billionaireRepository.findAll(Sort.by(Sort.Direction.DESC,"networth")));
+       billionaireService.saveBillionaire(billionaire);
+       model.addAttribute("billionaires", billionaireService.sortBillionaires());
        return "index";
    }
     @GetMapping("/deleteBillionaire/{id}")
     public String deleteBillionaire(@PathVariable("id") long id, Model model) {
-        Billionaire billionaire = billionaireRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid billionaire Id:" + id));
-        billionaireRepository.delete(billionaire);
-        model.addAttribute("billionaires", billionaireRepository.findAll(Sort.by(Sort.Direction.DESC,"networth")));
+        Billionaire billionaire = billionaireService.findBillionaire(id);
+        billionaireService.deleteBillionaire(billionaire);
+        model.addAttribute("billionaires",billionaireService.sortBillionaires());
         return "index";
     }
 
