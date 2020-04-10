@@ -33,7 +33,7 @@ public class BillionaireController {
     @PostMapping("/addBillionaire")
     public String addBillionaire(@Valid Billionaire billionaire, BindingResult result,Model model){
         if (result.hasErrors()) {
-            result.rejectValue("name", "error.billionaire", "Error adding the user");
+          //  result.rejectValue("name", "error.billionaire", "Error adding the user");
             return "error";
         }
 
@@ -43,15 +43,15 @@ public class BillionaireController {
    }
    @GetMapping("/updateBillionaire/{id}")
    public String showUpdateBillionaireForm(@PathVariable("id") long id, Model model) {
-       Billionaire billionaire = billionaireService.findBillionaire(id);
-       model.addAttribute("billionaire", billionaire);
+      // Billionaire billionaire = billionaireService.findBillionaire(id);
+       model.addAttribute("billionaire", billionaireService.findBillionaire(id));
        return "update-billionaire";
    }
    @PostMapping("/updateBillionaire/{id}")
     public String updateBillionaire(@PathVariable("id") long id,@Valid Billionaire billionaire,BindingResult result,Model model){
        if (result.hasErrors()) {
            billionaire.setId(id);
-           result.rejectValue("name", "error.billionaire", "Error updating the user");
+           //result.rejectValue("name", "error.billionaire", "Error updating the user");
            return "error";
        }
        billionaireService.saveBillionaire(billionaire);
