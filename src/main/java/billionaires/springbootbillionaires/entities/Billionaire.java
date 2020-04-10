@@ -1,10 +1,9 @@
 package billionaires.springbootbillionaires.entities;
-
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Blob;
 //import javax.validation.constraints.NotBlank;
 
@@ -13,21 +12,21 @@ public class Billionaire {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+   // @NotBlank(message = "name is mandatory")
     private String name;
-   // @NotBlank(message = "networth is mandatory")
+  // @NotBlank(message = "networth is mandatory")
     private Double networth;
-    // @NotBlank(message = "companiesowned is mandatory")
+  // @NotBlank(message = "companiesowned is mandatory")
     private String companiesowned;
-   // @Lob
-    // private byte[] icon;
-    private Blob icon;
+
+   private String icon;
 
 
     public  Billionaire() {
 
     }
 
-    public Billionaire(String name, Double networth, String companiesowned,Blob icon) {
+    public Billionaire(String name, Double networth, String companiesowned,String icon) {
         this.name = name;
         this.networth = networth;
         this.companiesowned = companiesowned;
@@ -66,16 +65,15 @@ public class Billionaire {
     public void setCompaniesowned(String companiesOwned) {
         this.companiesowned = companiesOwned;
     }
-    public void setIcon(Blob icon) {
+    public void setIcon(String icon) {
 
-        this.icon = icon;
-    }
-
-    public Blob getIcon() {
-
+       this.icon = icon;
+        }
+//
+   public String  getIcon() {
         return icon;
-    }
-
+       }
+//
 
     @Override
     public String toString() {
@@ -86,6 +84,5 @@ public class Billionaire {
                 ", icon='" + icon + '\'' +
                 '}';
     }
-
 
 }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,12 +27,13 @@ public class BillionaireController {
        return "index";
     }
     @GetMapping("/addBillionaire")
-    public String showAddBillionaireForm(){
+    public String showAddBillionaireForm(Billionaire billionaire){
        return "add-billionaire";
     }
     @PostMapping("/addBillionaire")
     public String addBillionaire(@Valid Billionaire billionaire, BindingResult result,Model model){
         if (result.hasErrors()) {
+            result.rejectValue("name", "error.billionaire", "Error adding the user");
             return "error";
         }
 
@@ -49,9 +51,9 @@ public class BillionaireController {
     public String updateBillionaire(@PathVariable("id") long id,@Valid Billionaire billionaire,BindingResult result,Model model){
        if (result.hasErrors()) {
            billionaire.setId(id);
+           result.rejectValue("name", "error.billionaire", "Error updating the user");
            return "error";
        }
-
        billionaireService.saveBillionaire(billionaire);
        model.addAttribute("billionaires", billionaireService.sortBillionaires());
        return "index";
