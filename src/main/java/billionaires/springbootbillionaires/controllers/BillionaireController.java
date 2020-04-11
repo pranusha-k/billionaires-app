@@ -51,7 +51,6 @@ public class BillionaireController {
     public String updateBillionaire(@PathVariable("id") long id,@Valid Billionaire billionaire,BindingResult result,Model model){
        if (result.hasErrors()) {
            billionaire.setId(id);
-           //result.rejectValue("name", "error.billionaire", "Error updating the user");
            return "error";
        }
        billionaireService.saveBillionaire(billionaire);
